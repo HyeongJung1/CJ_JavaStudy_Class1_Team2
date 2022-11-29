@@ -53,6 +53,9 @@ public class BoardService {
         //List<Board> list = boardRepository.findByTitleContaining("100");
 
 
+        //List<Board> list = boardRepository.findByTitle("100", pageable).getContent();
+
+
 
 
 

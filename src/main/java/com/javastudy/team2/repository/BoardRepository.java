@@ -2,6 +2,8 @@ package com.javastudy.team2.repository;
 
 
 import com.javastudy.team2.model.Board;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -20,5 +22,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer>, PagingAn
 
     List<Board> findByTitle(String title);
     List<Board> findByTitleContaining(String title);
+
+    Page<Board> findByTitle(String title, Pageable pageable);
 
 }
