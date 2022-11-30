@@ -1,7 +1,3 @@
-##### Java Study Team Project
-
-#
-
 ########## Test Modify ##########
 
 Language : JAVA 17
