@@ -17,7 +17,7 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
-    @GetMapping("/board")
+        @GetMapping("/board")
     public ResponseEntity<Map> getAllBoards(@RequestParam(value = "p_num", required=false) Integer p_num,
     @RequestParam(name = "sort-field", required=false) String sortField,
     @RequestParam(name = "sort-dir", required=false) String sortDir) {
