@@ -37,4 +37,7 @@ public class Board {
     @Column(name = "updated")
     private Date updated;
 
+    @Column(name = "userid")
+    private String userid;
+
 }
