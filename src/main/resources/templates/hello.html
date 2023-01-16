@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>Hello</title>
+</head>
+<body>
+
+<h1>Form Axios</h1>
+<form action="#" id="frm">
+
+    first : <input type="text" id="restFirst" />
+    second : <input type="text" id="restSecond" />
+    last : <input type="text" id="restLast" />
+    <input type="submit" value="submit" />
+</form>
+
+
+<h1>Form Submit</h1>
+<form action="#" th:action="@{/testDTO}" th:object="${sampleDTO}" method="post">
+
+    first : <input type="text" th:field="*{first}" />
+    second : <input type="text" th:field="*{second}" />
+    last : <input type="text" th:field="*{last}" />
+    <input type="submit" value="submit" />
+</form>
+
+
+<h2>Hello !!!!!</h2>
+<div><a href="link">Move Link</a></div>
+<div><a th:href="@{'/link/'  + ${url}}">Move Link</a></div>
+
+
+<h1 th:if="${msg} != null" th:text="${msg}"></h1>
+
+    <h1>List</h1>ht
+    <div style="border:1px;">
+        <ul>
+            <li th:each="list: ${list}" th:text="${list}"></li>
+        </ul>
+    </div>
+<input type="button" name="btnTest" value="click" onclick="testAxios()">
+<div id="ulist">
+
+
+</div>
+<script th:inline="javascript">
+    //console.log("test");
+    function testAxios() {
+        axios.post("/api2/axiostest", {parameter:"ppp"})
+        .then(function(res){
+            const data = res.data;
+            data && data[0] && data.forEach(i => {
+                const newLi = document.createElement("li");
+                newLi.style.color = "blue";
+                newLi.innerHTML = i;
+                document.getElementById("ulist").appendChild(newLi);
+            });
+        })
+    }
+
+    //testAxios();
+
+
+    document.getElementById('frm').addEventListener('submit', e=> {
+    e.preventDefault();
+
+    const first = document.getElementById('restFirst').value;
+    const second = document.getElementById('restSecond').value;
+    const last = document.getElementById('restLast').value;
+    dtoTest({first, second, last});
+    })
+
+    function dtoTest(param){
+      axios.post("/api2/dtotest", param)
+              .then(function(res){
+              })
+    }
+</script>
+</body>
+</html>
