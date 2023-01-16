@@ -64,6 +64,26 @@
         </tr>
         </tbody>
     </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link" v-if="paing.currentPageNum != 1" v-on:click.prenvet="move(paing.pageNumStart)"><</a>
+            </li>
+            <span v-for=" b in paing.pageNumEnd ">
+                <li v-if="paing.currentPageNum!=b" class="page-item">
+                    <a class="page-link" v-text=b  v-on:click.prevent="move(b)"></a>
+
+                <li v-else class="page-item active">
+                    <span class="page-link"  v-text=b></span>
+                </li>
+            </span>
+            <li class="page-item">
+                <a class="page-link"  v-if="paing.currentPageNum != paing.pageNumEnd"   v-on:click.prenvet="move(paing.pageNumEnd)"> > </a>
+            </li>
+        </ul>
+    </nav>
+
+    <br/>
     <button class="btn btn-success" id="show-modal" @click="create()">Write</button>
     <modal v-if="showModal" @close="showModal = false">
         <h3 slot="header" v-text="'Board '+menu[status]"></h3>
@@ -132,9 +152,24 @@
                 ,title : ''
                 ,contents : ''
             }
+            ,paing : {
+                currentPageNum : ''
+                ,objectCountTotal:''
+                ,objectCountPerPage:''
+                ,objectStartNum:''
+                ,objectEndNum:''
+                ,pageNumCountTotal:''
+                ,pageNumCountPerPage:''
+                ,pageNumStart:''
+                ,pageNumEnd:''
+                ,prev:''
+                ,next:''
+
+            }
             ,showModal : false
             ,status : ''
         },
+
         mounted : function(){
             this.load()
         } ,
@@ -144,8 +179,10 @@
                     url : '/api/board'
                 }).done(function(data){
                     board.boardList = data.list;
+                    board.paing = data.pagingData;
                 })
             },
+
             remove : function(boardNo){
 
                 this.showModal=false;
@@ -207,6 +244,15 @@
                     board.load();
                 })
             },
+            move : function (no){
+                $.ajax({
+                    url : '/api/board?p_num='+no
+                }).done(function(data){
+                    board.boardList = data.list;
+                    board.paing = data.pagingData;
+                })
+            },
         }
     })
 </script>
+
